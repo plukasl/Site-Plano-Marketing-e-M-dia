@@ -1,0 +1,6 @@
+{
+  "name": "Plano - Mídia & Performance",
+  "description": "Landing page institucional e de alta conversão da Plano para assessoria em tráfego pago, social media, landing pages e produção de conteúdo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
