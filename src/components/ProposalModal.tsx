@@ -15,10 +15,10 @@ const AVAILABLE_SERVICES = [
 ];
 
 const BUDGET_OPTIONS = [
-  'Até R$ 3.000/mês',
-  'R$ 3.000 a R$ 5.000/mês',
-  'R$ 5.000 a R$ 10.000/mês',
-  'Acima de R$ 10.000/mês'
+  'Até R$ 1.500/mês',
+  'R$ 2.000 a R$ 3.000/mês',
+  'R$ 4.000 a R$ 5.000/mês',
+  'Acima de R$ 5.000/mês'
 ];
 
 export const ProposalModal: React.FC<ProposalModalProps> = ({
@@ -30,7 +30,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({
   const [selectedServices, setSelectedServices] = useState<string[]>([
     initialService || 'Gestão de Tráfego Pago'
   ]);
-  const [selectedBudget, setSelectedBudget] = useState('R$ 3.000 a R$ 5.000/mês');
+  const [selectedBudget, setSelectedBudget] = useState('R$ 2.000 a R$ 3.000/mês');
 
   const [companyName, setCompanyName] = useState('');
   const [segment, setSegment] = useState('');
@@ -79,6 +79,10 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({
       alert('Por favor, selecione ao menos um serviço de interesse.');
       return;
     }
+    if (!selectedBudget) {
+      alert('Por favor, selecione uma faixa de investimento.');
+      return;
+    }
     setCurrentStep(2);
   };
 
@@ -87,12 +91,20 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({
       alert('Por favor, informe o nome da sua empresa.');
       return;
     }
+    if (!segment.trim()) {
+      alert('Por favor, informe o segmento de atuação.');
+      return;
+    }
+    if (!message.trim()) {
+      alert('Por favor, descreva brevemente seu objetivo ou desafio atual.');
+      return;
+    }
     setCurrentStep(3);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName || !email || !phone || !companyName) {
+    if (!fullName.trim() || !email.trim() || !phone.trim() || !companyName.trim() || !segment.trim() || !message.trim()) {
       alert('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
@@ -217,7 +229,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({
 
                 <div>
                   <label className="block text-sm font-bold text-slate-200 mb-2">
-                    Estimativa mensal de investimento em mídia/anúncios
+                    Estimativa mensal de investimento em mídia/anúncios <span className="text-violet-400">*</span>
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {BUDGET_OPTIONS.map((bud) => {
@@ -270,10 +282,11 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-200 mb-1.5">
-                    Segmento de atuação
+                    Segmento de atuação <span className="text-violet-400">*</span>
                   </label>
                   <input
                     type="text"
+                    required
                     value={segment}
                     onChange={(e) => setSegment(e.target.value)}
                     placeholder="Ex: E-commerce, Saúde, Tecnologia, Serviços B2B"
@@ -282,13 +295,14 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-200 mb-1.5">
-                    Observações ou objetivos específicos (opcional)
+                    Objetivos específicos ou desafio atual <span className="text-violet-400">*</span>
                   </label>
                   <textarea
                     rows={2}
+                    required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Conte brevemente o momento atual da sua empresa..."
+                    placeholder="Conte brevemente o momento atual da sua empresa e o que precisa alcançar..."
                     className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#7C3AED] text-sm"
                   />
                 </div>

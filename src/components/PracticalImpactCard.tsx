@@ -34,7 +34,7 @@ export const PracticalImpactCard: React.FC<PracticalImpactCardProps> = ({
       <div className="p-5 rounded-2xl bg-[#0B0F17] border border-slate-800/80 space-y-1.5 transition-all hover:border-slate-700">
         <h4 className="text-base font-bold text-white">Tempo</h4>
         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-          Você cuida do negócio, eu cuido dos anúncios.
+          Você cuida do negócio, nós dos anúncios.
         </p>
       </div>
 
